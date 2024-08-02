@@ -1,5 +1,5 @@
 # ASG-lighting
-This is the code for extract the parameters for Anistropic Spherical Guassian parametric model to represent the environment lighting. 
+This code extracts parameters for the Anisotropic Spherical Gaussian model to represent environmental lighting.
 
 # Key Parameters:
 	GAUSS_SPHERE_SX = [0,1] # This is SG
