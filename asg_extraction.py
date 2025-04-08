@@ -41,8 +41,7 @@ def gaussianSphere(xyz, width, height, center, amp=1.0,stdx=1,stdy=1,theta=0.0):
 		distribution = np.maximum(np.sum(v*z, axis=2),0) * np.exp( -((np.sum(v*x, axis=2)**n)/stdx) - ((np.sum(v*y, axis=2)**n)/stdy) )
 		return amp * distribution[:,:,np.newaxis]
 	return evaluateSG(xyz)
-
-
+	
 def detectPeaks(img, max_sigma, threshold):
 	peakCoords = peak_local_max(img, min_distance=3, threshold_abs=0)
 	if peakCoords.shape[0]==0:
@@ -169,8 +168,7 @@ def detectAllLights(imgInput, max_sigma=30, threshold=None, nStdAboveMean=0.0, b
 	peakCoords = peakCoords[peakCoords[:,-1].argsort()[::-1]] # highest to lowest
 
 	return peakCoords,threshold #
-
-
+	
 def getGuess(nLights,nParams,resReduction):
 	guess = []
 	geussSigma = (0.0174533)*resReduction
@@ -210,10 +208,6 @@ def processLightDetection(targetImgRGB,nStdAboveMean):
 	print("ambientLightValue:",ambientLightValue)
 
 	return X,Y,lightIndices,nLights,threshold,ambientLightValue
-
-
-
-
 
 def evaluate(xyz,params, nParams, lightIndices, model_id, targetImg, X, Y, width, height, doRemoveBottom=False, isGrey=False, keepAsFlattenedArray=False):
 	if isGrey:
@@ -299,31 +293,3 @@ def evaluate_single(xyz,params, lightIdx, lightIndices, model_id, targetImg, X, 
 			return y.astype(np.float32).reshape((xyz.shape[0],xyz.shape[1],3))
 
 
-
-# def func_curvefit(xyz, *params):
-# 	nParams, lightIndices, isGrey=params
-# 	y, pxl_coord_all, z_all, intensity_all = evaluate(xyz,params, nParams, lightIndices, isGrey, keepAsFlattenedArray=True)
-# 	return y		
-# def func_curvefit_single(xyz, *params,args):
-# 	lightIdx = args[0]
-# 	lightIndices = args[1]
-# 	isGrey = [args[2]]
-# 	y= evaluate_single(xyz,params,lightIdx, lightIndices, isGrey, keepAsFlattenedArray=True)
-# 	return y		
-# def func_leastsq(params, args):
-# 	xyz = args[0]
-# 	nParams= args[1] 
-# 	lightIndices= args[2]
-# 	isGrey= args[3]
-# 	y, pxl_coord_all, z_all, intensity_all = evaluate(xyz,params, nParams, lightIndices, isGrey, keepAsFlattenedArray=True)
-# 	return y-yTarget
-	
-# def func_leastsq_single(params, args):
-# 	xyz = args[0]
-# 	lightIdx = args[1]
-# 	lightIndices = args[2]
-# 	isGrey = args[3]
-# 	y = evaluate_single(xyz,params,lightIdx, lightIndices, isGrey, keepAsFlattenedArray=True)
-# 	return y-yTarget	
-
-	
